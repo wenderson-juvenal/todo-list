@@ -1,4 +1,7 @@
 import React from 'react';
+import { FaTrash } from 'react-icons/fa';
+import { RiEdit2Line } from 'react-icons/ri';
+
 
 function TaskList({tasks, onToggleTask, onDeleteTask}) {
     return (
@@ -11,12 +14,8 @@ function TaskList({tasks, onToggleTask, onDeleteTask}) {
                         >
                         {task.text}
                     </span>
-                    
-                    <button 
-                        onClick={() => onDeleteTask(task.id)}
-                        >
-                        apagar
-                    </button>
+                    <RiEdit2Line />
+                    <FaTrash onClick={() => onDeleteTask(task.id)}/>
                 </li>
             ))}
         </ul>
