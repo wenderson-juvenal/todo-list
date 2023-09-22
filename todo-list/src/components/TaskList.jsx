@@ -8,8 +8,8 @@ function TaskList({tasks, onToggleTask, onUpdateTask, onDeleteTask}) {
     const [taskStates, setTaskStates] = useState(tasks.map(task => ({ isEditing: false, editText: task.text })));
 
     useEffect(() => {
-        console.log(taskStates)
-    }, [taskStates])
+        setTaskStates(tasks.map(task => ({ isEditing: false, editText: task.text })));
+    }, [tasks]);
     
     const edit = (taskId) => {
         // Atualize o estado isEditing para a tarefa específica
@@ -47,7 +47,7 @@ function TaskList({tasks, onToggleTask, onUpdateTask, onDeleteTask}) {
     return (
         <ul>
             {tasks.map((task, index) => (
-                taskStates[index].isEditing ? (
+                taskStates[index] && taskStates[index].isEditing ? (
                     <li key={task.id}>
                         <span 
                             style={{textDecoration: task.completed ? 'line-through' : 'none'}}
