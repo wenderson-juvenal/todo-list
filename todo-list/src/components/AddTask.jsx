@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 
 function AddTask({onAddTask}) {
     const [taskText, setTaskText] = useState('');
-
     const handleAddTask = () => {
         if (taskText.trim() !== '') {
             onAddTask(taskText);

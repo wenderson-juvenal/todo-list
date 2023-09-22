@@ -1,33 +1,64 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { RiEdit2Line } from 'react-icons/ri';
 import { FiCheck } from 'react-icons/fi';
 
 
-function TaskList({tasks, onToggleTask, onEditTask, onUpdateTask, onDeleteTask}) {
-    const [editText, setEditText] = useState()
+function TaskList({tasks, onToggleTask, onUpdateTask, onDeleteTask}) {    
+    const [taskStates, setTaskStates] = useState(tasks.map(task => ({ isEditing: false, editText: task.text })));
 
-    const edit = (taskId, text) => {
-        setEditText(text)
-        onEditTask(taskId)
-    }
+    useEffect(() => {
+        console.log(taskStates)
+    }, [taskStates])
+    
+    const edit = (taskId) => {
+        // Atualize o estado isEditing para a tarefa específica
+        setTaskStates((prevTaskStates) =>
+            prevTaskStates.map((taskState) =>
+                taskState.isEditing ? { ...taskState, isEditing: false } : taskState
+            )
+        );
+        // Atualize o estado isEditing para a tarefa em edição
+        setTaskStates((prevTaskStates) =>
+        prevTaskStates.map((taskState, index) =>
+            index === taskId ? { ...taskState, isEditing: true } : taskState
+        )
+        );
+     };
 
+    const handleInputChange = (taskId, e) => {
+        setTaskStates((prevTaskStates) =>
+            prevTaskStates.map((taskState, index) =>
+                index === taskId ? { ...taskState, editText: e.target.value } : taskState
+            )
+        );
+    };
+
+    const handleEditSave = (i, taskId) => {
+        const editedText = taskStates[i].editText;
+        onUpdateTask(taskId, editedText);
+        setTaskStates((prevTaskStates) =>
+            prevTaskStates.map((taskState, index) =>
+                index === i ? { ...taskState, isEditing: false } : taskState
+            )
+        );
+    };
+    
     return (
         <ul>
-            {tasks.map(task => (
-                task.isEditing ? (
+            {tasks.map((task, index) => (
+                taskStates[index].isEditing ? (
                     <li key={task.id}>
                         <span 
                             style={{textDecoration: task.completed ? 'line-through' : 'none'}}
-                            onClick={() => onToggleTask(task.id)}
                             >
                             <input 
                                 type="text" 
-                                value={editText}
-                                onChange={e => setEditText(e.target.value)}
+                                value={taskStates[index].editText}
+                                onChange={e => handleInputChange(index, e)}
                             />
                         </span>
-                        <FiCheck onClick={() => onUpdateTask(task.id, editText)}/>
+                        <FiCheck onClick={() => handleEditSave(index, task.id)}/>
                         <FaTrash onClick={() => onDeleteTask(task.id)}/>
                     </li>
                 ) : (
@@ -38,7 +69,7 @@ function TaskList({tasks, onToggleTask, onEditTask, onUpdateTask, onDeleteTask})
                             >
                             {task.text}
                         </span>
-                        <RiEdit2Line onClick={()=>edit(task.id, task.text)}/>
+                        <RiEdit2Line onClick={()=>edit(index)}/>
                         <FaTrash onClick={() => onDeleteTask(task.id)}/>
                     </li>
                 )

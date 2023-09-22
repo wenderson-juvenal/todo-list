@@ -10,7 +10,6 @@ function App() {
             id: Date.now(),
             text,
             completed: false,
-            isEditing: false
         }
         setTasks([...tasks, newTask])
     }
@@ -21,15 +20,9 @@ function App() {
         setTasks(updatedTasks)
     }
 
-    const editTask = (taskId) => {
-        const updatedTasks = tasks.map(task =>
-            task.id===taskId ? {...task, isEditing: !task.isEditing} : task
-        )
-        setTasks(updatedTasks)
-    }
     const updateTask = (taskId, text) => {
         const updatedTasks = tasks.map(task =>
-            task.id===taskId ? {...task, text, isEditing: !task.isEditing} : task
+            task.id===taskId ? {...task, text} : task
         )
         setTasks(updatedTasks)
     }
@@ -44,7 +37,6 @@ function App() {
             <TaskList 
                 tasks={tasks}
                 onToggleTask={toggleTask}
-                onEditTask={editTask}
                 onUpdateTask={updateTask}
                 onDeleteTask={deleteTask}
             />
