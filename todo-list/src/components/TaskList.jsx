@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import '../App.css'
 import { FaTrash } from 'react-icons/fa';
 import { RiEdit2Line } from 'react-icons/ri';
 import { FiCheck } from 'react-icons/fi';
@@ -12,13 +13,11 @@ function TaskList({tasks, onToggleTask, onUpdateTask, onDeleteTask}) {
     }, [tasks]);
     
     const edit = (taskId) => {
-        // Atualize o estado isEditing para a tarefa específica
         setTaskStates((prevTaskStates) =>
             prevTaskStates.map((taskState) =>
                 taskState.isEditing ? { ...taskState, isEditing: false } : taskState
             )
         );
-        // Atualize o estado isEditing para a tarefa em edição
         setTaskStates((prevTaskStates) =>
         prevTaskStates.map((taskState, index) =>
             index === taskId ? { ...taskState, isEditing: true } : taskState

@@ -5,6 +5,7 @@ import TaskList from './components/TaskList';
 
 function App() {
     const [tasks, setTasks] = useState([]);
+
     const addTask = (text) => {
         const newTask = {
             id: Date.now(),
@@ -26,6 +27,7 @@ function App() {
         )
         setTasks(updatedTasks)
     }
+
     const deleteTask = (taskId) => {
         const updatedTasks = tasks.filter(task => task.id !== taskId)
         setTasks(updatedTasks)
@@ -33,7 +35,9 @@ function App() {
   return (
     <div className="App">
             <h1>To Do List</h1>
-            <AddTask onAddTask={addTask} />
+            <AddTask 
+                onAddTask={addTask}
+            />
             <TaskList 
                 tasks={tasks}
                 onToggleTask={toggleTask}
