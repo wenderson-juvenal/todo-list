@@ -44,32 +44,35 @@ function TaskList({tasks, onToggleTask, onUpdateTask, onDeleteTask}) {
     };
     
     return (
-        <ul>
+        <ul id='taskList'>
             {tasks.map((task, index) => (
                 taskStates[index] && taskStates[index].isEditing ? (
-                    <li key={task.id}>
-                        <span 
-                            style={{textDecoration: task.completed ? 'line-through' : 'none'}}
-                            >
-                            <input 
-                                type="text" 
-                                value={taskStates[index].editText}
-                                onChange={e => handleInputChange(index, e)}
-                            />
-                        </span>
-                        <FiCheck onClick={() => handleEditSave(index, task.id)}/>
-                        <FaTrash onClick={() => onDeleteTask(task.id)}/>
+                    <li className='taskItem' key={task.id}>
+                        <input 
+                            type="text" 
+                            value={taskStates[index].editText}
+                            onChange={e => handleInputChange(index, e)}
+                        />
+                        <div>
+                            <FiCheck onClick={() => handleEditSave(index, task.id)}/>
+                            <FaTrash onClick={() => onDeleteTask(task.id)}/>
+                        </div>
+                        
                     </li>
                 ) : (
-                    <li key={task.id}>
-                        <span 
-                            style={{textDecoration: task.completed ? 'line-through' : 'none'}}
+                    <li className='taskItem' key={task.id}>
+                        <div 
+                            style={{textDecoration: task.completed ? 'line-through' : 'none',
+                                    cursor: 'pointer',}}
                             onClick={() => onToggleTask(task.id)}
                             >
-                            {task.text}
-                        </span>
-                        <RiEdit2Line onClick={()=>edit(index)}/>
-                        <FaTrash onClick={() => onDeleteTask(task.id)}/>
+                            <p>{task.text}</p>
+                        </div>
+                        <div>
+                            <RiEdit2Line onClick={()=>edit(index)}/>
+                            <FaTrash onClick={() => onDeleteTask(task.id)}/>
+                        </div>
+                        
                     </li>
                 )
                 

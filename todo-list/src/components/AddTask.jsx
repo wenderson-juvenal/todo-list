@@ -13,7 +13,8 @@ function AddTask({onAddTask}) {
     
     return (
         <form  onSubmit={handleSubmit}>
-            <input
+            <input 
+                id='addTaskInput'
                 type='text'
                 placeholder='Digite uma nova tarefa'
                 value={taskText}

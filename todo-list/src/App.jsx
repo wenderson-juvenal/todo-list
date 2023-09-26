@@ -35,15 +35,18 @@ function App() {
   return (
     <div className="App">
             <h1>To Do List</h1>
-            <AddTask 
-                onAddTask={addTask}
-            />
-            <TaskList 
-                tasks={tasks}
-                onToggleTask={toggleTask}
-                onUpdateTask={updateTask}
-                onDeleteTask={deleteTask}
-            />
+            <main>
+                <AddTask 
+                    onAddTask={addTask}
+                />
+                <TaskList 
+                    tasks={tasks}
+                    onToggleTask={toggleTask}
+                    onUpdateTask={updateTask}
+                    onDeleteTask={deleteTask}
+                />
+            </main>
+            
         </div>
   )
 }
