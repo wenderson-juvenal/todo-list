@@ -19,6 +19,7 @@ function AddTask({onAddTask}) {
                 placeholder='Digite uma nova tarefa'
                 value={taskText}
                 onChange={(e) => setTaskText(e.target.value)}
+                autocomplete="off"
             />
         </form>
     )

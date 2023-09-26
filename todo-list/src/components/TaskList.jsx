@@ -52,6 +52,7 @@ function TaskList({tasks, onToggleTask, onUpdateTask, onDeleteTask}) {
                             type="text" 
                             value={taskStates[index].editText}
                             onChange={e => handleInputChange(index, e)}
+                            autocomplete="off"
                         />
                         <div>
                             <FiCheck onClick={() => handleEditSave(index, task.id)}/>
