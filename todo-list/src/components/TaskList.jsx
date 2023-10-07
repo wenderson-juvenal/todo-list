@@ -7,7 +7,7 @@ import { FiCheck } from 'react-icons/fi';
 
 function TaskList({tasks, onToggleTask, onUpdateTask, onDeleteTask}) {    
     const [taskStates, setTaskStates] = useState(tasks.map(task => ({ isEditing: false, editText: task.text })));
-
+    
     useEffect(() => {
         setTaskStates(tasks.map(task => ({ isEditing: false, editText: task.text })));
     }, [tasks]);
@@ -19,10 +19,11 @@ function TaskList({tasks, onToggleTask, onUpdateTask, onDeleteTask}) {
             )
         );
         setTaskStates((prevTaskStates) =>
-        prevTaskStates.map((taskState, index) =>
-            index === taskId ? { ...taskState, isEditing: true } : taskState
-        )
+            prevTaskStates.map((taskState, index) =>
+                index === taskId ? { ...taskState, isEditing: true } : taskState
+            )
         );
+        
      };
 
     const handleInputChange = (taskId, e) => {
@@ -49,6 +50,7 @@ function TaskList({tasks, onToggleTask, onUpdateTask, onDeleteTask}) {
                 taskStates[index] && taskStates[index].isEditing ? (
                     <li className='taskItem' key={task.id}>
                         <input 
+                            className='editTaskInput'
                             type="text" 
                             value={taskStates[index].editText}
                             onChange={e => handleInputChange(index, e)}

@@ -70,3 +70,10 @@ main {
 .taskItem div svg {
     cursor: pointer;
 }
+
+.editTaskInput {
+    background-color: transparent;
+    border: none;
+    padding: 10px 0;
+    width: 100%;
+}
